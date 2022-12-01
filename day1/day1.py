@@ -10,12 +10,12 @@ with open('day1/input.txt') as file_object:
     #                                            file_object.read().split('\n\n')]]
 
     # More readable version with for loop
-    input = []
+    calories = []
     for section in file_object.read().split('\n\n'):
-        input.append([int(val) for val in section.split()])
+        calories.append([int(val) for val in section.split()])
 
 # Sum up each sublist
-sums = [sum(val) for val in input]
+sums = [sum(sub_list) for sub_list in calories]
 
 '''Part One'''
 # Answer is the max of the list of sums
