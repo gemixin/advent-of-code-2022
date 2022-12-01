@@ -6,7 +6,7 @@ Github: gemixin'''
 # Each sublist contains each individual elf calorie entries
 with open('day1/input.txt') as file_object:
     # List comprehension version
-    # input = [[int(val) for val in x] for x in [section.split() for section in
+    # calories = [[int(val) for val in x] for x in [section.split() for section in
     #                                            file_object.read().split('\n\n')]]
 
     # More readable version with for loop
