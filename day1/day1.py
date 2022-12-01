@@ -5,8 +5,14 @@ Github: gemixin'''
 # Read the file in to a list of lists
 # Each sublist contains each individual elf calorie entries
 with open('day1/input.txt') as file_object:
-    input = [[int(val) for val in x] for x in [section.split() for section in
-                                               file_object.read().split('\n\n')]]
+    # List comprehension version
+    # input = [[int(val) for val in x] for x in [section.split() for section in
+    #                                            file_object.read().split('\n\n')]]
+
+    # More readable version with for loop
+    input = []
+    for section in file_object.read().split('\n\n'):
+        input.append([int(val) for val in section.split()])
 
 # Sum up each sublist
 sums = [sum(val) for val in input]
