@@ -38,9 +38,7 @@ print(sum(round_scores))
 
 '''Part Two'''
 # Create a new list using the same format as part one, based on whether or not a win,
-# loss or draw is needed
-
-# X = Loss, Y = Draw, Z = Win
+# loss or draw is needed (X = loss, Y = draw, Z = win)
 required_index = {'X': 2, 'Y': 1, 'Z': 0}
 new_rounds = [[opponent, result_combos[opponent][required_index[me]]]
               for opponent, me in rounds]
