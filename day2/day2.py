@@ -45,7 +45,7 @@ def calculate_scores(rounds):
 
 
 '''Part One'''
-# Answer is the sum of the round_scores
+# Answer is the sum of the round scores
 round_scores = calculate_scores(rounds)
 print(sum(round_scores))
 
@@ -65,6 +65,6 @@ for opponent, me in rounds:
         new_me = result_combos[opponent][0]
     new_rounds.append([opponent, new_me])
 
-# Answer is the sum of the new round_scores
+# Answer is the sum of the new round scores
 new_round_scores = calculate_scores(new_rounds)
 print(sum(new_round_scores))
