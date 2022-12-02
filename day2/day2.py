@@ -26,7 +26,7 @@ result_points = [6, 3, 0]
 
 
 def calculate_scores(rounds):
-    '''Calculate the score for each round'''
+    '''Returns a list of calculated scores for each round'''
     return [result_points[result_combos[opponent].index(me)] + point_values[me]
             for opponent, me in rounds]
 
