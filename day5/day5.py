@@ -34,28 +34,31 @@ instructions = [re.findall(r'\d+', line) for line in string_instructions.split('
 instructions = [[int(inner_pair[0]), int(inner_pair[1])-1, int(inner_pair[2])-1]
                 for inner_pair in instructions]
 
+
+def moveCrates(stacks, instructions, rev=True):
+    '''Process the instructions and rearrange the crates in the stacks accordingly'''
+    for i in instructions:
+        # Get the crates that need to be moved
+        crates_to_move = stacks[i[1]][-i[0]:]
+        # Remove crates from outgoing stack by shrinking that stack
+        stacks[i[1]] = stacks[i[1]][:-i[0]]
+        # Add crates to incoming stack
+        # If moving one by one, reverse the list (part one)
+        if (rev):
+            stacks[i[2]].extend(reversed(crates_to_move))
+        # Otherwise, simulate moving entire block at once (part two)
+        else:
+            stacks[i[2]].extend(crates_to_move)
+
+
 '''Part One'''
 stacks1 = copy.deepcopy(stacks)
-# Process instructions
-for inst in instructions:
-    # For every crate that needs moving
-    for i in range(inst[0]):
-        # Move from outgoing stack to incoming stack
-        stacks1[inst[2]].append(stacks1[inst[1]].pop())
-
+moveCrates(stacks1, instructions)
 # The answer is the string concatenation of the letters on top of each stack
 print(''.join([stack[-1] for stack in stacks1]))
 
 '''Part Two'''
 stacks2 = copy.deepcopy(stacks)
-# Process instructions
-for inst in instructions:
-    # Get the crates that need to be moved
-    crates_to_move = stacks2[inst[1]][-inst[0]:]
-    # Remove crates from outgoing stack by shrinking that stack
-    stacks2[inst[1]] = stacks2[inst[1]][:-inst[0]]
-    # Add crates to incoming stack
-    stacks2[inst[2]].extend(crates_to_move)
-
+moveCrates(stacks2, instructions, rev=False)
 # The answer is the string concatenation of the letters on top of each stack
 print(''.join([stack[-1] for stack in stacks2]))
