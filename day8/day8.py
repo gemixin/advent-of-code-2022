@@ -36,3 +36,43 @@ for i, row in enumerate(grid[1:grid_size-1]):
 
 # Answer is the total number of visible trees
 print(visible)
+
+'''Part Two'''
+# Loop through all the numbers in the grid
+# Set the max scenic score to 0
+max_scenic_score = 0
+# Loop through all the numbers in the grid
+for i, row in enumerate(grid):
+    for j, tree_height in enumerate(row):
+        # Slice the grid to get the rows of other trees in each direction
+        # Reverse the left and up slices to reflect the direction from the current tree
+        # Order = right, left, down, up
+        slices = [grid[i, j+1:], np.flip(grid[i, :j]),
+                  grid[i+1:, j], np.flip(grid[:i, j])]
+        # Create an empty list to store the number of visible trees in each direction
+        # for the current tree
+        visible = []
+        # Loop through the slices
+        for slice in slices:
+            # Get an array of the indexes of all blocking trees for the current
+            # direction
+            blocking_trees = np.argwhere(slice >= tree_height)
+            # If there are any blocking trees...
+            # To find the number of visible trees we want the index of the first
+            # blocking tree plus 1 (i.e. if the index is 2, it means the first
+            # blocking tree is 3 away)
+            if (len(blocking_trees) > 0):
+                visible.append(int(blocking_trees[0]) + 1)
+            # If there are no blocking trees, the number of visible trees is equal to
+            # the length of the slice (i.e. the number of trees to the edge in the
+            # current direction)
+            else:
+                visible.append(len(slice))
+        # The scenic score for the current tree is the number of visible trees
+        # multiplied together
+        # If it's bigger than the current biggest score, set it
+        if np.prod(visible) > max_scenic_score:
+            max_scenic_score = np.prod(visible)
+
+# Answer is the largest scenic score
+print(max_scenic_score)
